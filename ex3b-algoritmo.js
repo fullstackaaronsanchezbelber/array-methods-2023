@@ -8,8 +8,14 @@
  * @param {string} country País que queremos comprobar 
  */
 
-function countWins(winnerList, country) {
-    // your awesome code here
+ function countWins(winnerList, country) {
+    return winnerList.reduce((count, winner) => {
+        if (winner.country === country) {
+            return count + 1;
+        } else {
+            return count;
+        }
+    }, 0);
 }
 
 const winnerList1 = [

@@ -314,3 +314,57 @@ const flightReservations = [
 // Usa el método map para convertir cada objeto en un string con el formato 'numero de vuelo'-'compañía area'´Ejemplo : "AA456-American Airlines"
 
 // DIFICIL. USA el método reduce para sumar el conjunto total de puntos obtenidos de loyalyProgram de todos los tickets
+
+// Iterar por cada vuelo y mostrarlos por consola usando forEach
+flights.forEach((flight, index) => {
+  console.log(`Flight ${index + 1}: ${flight.airline} ${flight.flightNumber}`);
+});
+
+// Mostrar UNICAMENTE el pasajero de cada vuelo usando forEach
+flights.forEach(flight => {
+  console.log(`Passenger: ${flight.passenger.firstName} ${flight.passenger.lastName}`);
+});
+
+// Encontrar el vuelo número 'AA456' y mostrar el precio total usando find
+const flightAA456 = flights.find(flight => flight.flightNumber === 'AA456');
+if (flightAA456) {
+  console.log(`Precio total del vuelo AA456: ${flightAA456.totalPrice}`);
+} else {
+  console.log('Vuelo AA456 no encontrado.');
+}
+
+// Encontrar el vuelo del pasajero con email 'bob.johnson@example.com' usando find
+const passengerFlight = flights.find(flight => flight.passenger.contactInfo.email === 'bob.johnson@example.com');
+if (passengerFlight) {
+  console.log('Vuelo del pasajero:');
+  console.log(passengerFlight);
+} else {
+  console.log('No se encontró ningún vuelo para el pasajero especificado.');
+}
+
+// Verificar si algún vuelo tiene como destino el aeropuerto de 'LPA Gran Canaria' usando some
+const hasDestinationLPA = flights.some(flight => flight.arrival.airport.includes('LPA'));
+console.log(`¿Hay vuelos con destino a LPA Gran Canaria? ${hasDestinationLPA ? 'Sí' : 'No'}`);
+
+// Comprobar si todos los vuelos están confirmados (isConfirmed) usando every
+const allConfirmed = flights.every(flight => flight.isConfirmed);
+console.log(`¿Están todos los vuelos confirmados? ${allConfirmed ? 'Sí' : 'No'}`);
+
+// Obtener todos los vuelos que tienen la puerta de embarque 'D5' usando filter
+const flightsGateD5 = flights.filter(flight => flight.gate === 'D5');
+console.log('Vuelos con puerta de embarque D5:');
+console.log(flightsGateD5);
+
+// Obtener todos los vuelos que incluyen menús con comida Vegana usando filter y mostrar el nombre de la aerolínea usando map
+const flightsWithVeganMeals = flights.filter(flight => flight.specialMeals.includes('Vegetarian'));
+console.log('Vuelos con menús Veganos:');
+flightsWithVeganMeals.map(flight => console.log(`Aerolínea: ${flight.airline}`));
+
+// Convertir cada objeto en un string con el formato 'numero de vuelo'-'compañía aérea' usando map
+const flightStrings = flights.map(flight => `${flight.flightNumber}-${flight.airline}`);
+console.log('Strings de vuelo:');
+console.log(flightStrings);
+
+// Sumar el conjunto total de puntos obtenidos de loyaltyProgram de todos los tickets usando reduce
+const totalPoints = flights.reduce((accumulator, flight) => accumulator + flight.loyaltyProgram.points, 0);
+console.log(`Total de puntos de programas de lealtad: ${totalPoints}`);
